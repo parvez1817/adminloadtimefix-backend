@@ -7,8 +7,19 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// --------------------
+// ✅ CORS CONFIGURATION
+// --------------------
+app.use(cors({ 
+  origin: [ 
+    "http://localhost:5173",                   // local dev frontend (Vite) 
+    "http://localhost:8080",                   // local dev frontend port 8080
+    "https://sonaadmin-idcard-portal.netlify.app" // deployed frontend (no trailing slash)
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+}));
+
 // Middleware
-app.use(cors());
 app.use(express.json());
 
 // Connect to studentidreq database with fast failover to avoid long hangs
